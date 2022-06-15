@@ -43,6 +43,7 @@ asciidoctor {
 }
 
 
+
 bootJar {
     dependsOn asciidoctor
     copy {
@@ -50,4 +51,5 @@ bootJar {
         from "${asciidoctor.outputDir}"
         into 'src/main/resources/static/docs'    // /static/docs로 복사!
     }
+
 }

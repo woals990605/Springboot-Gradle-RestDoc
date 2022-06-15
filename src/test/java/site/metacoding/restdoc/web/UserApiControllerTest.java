@@ -1,32 +1,33 @@
 package site.metacoding.restdoc.web;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import site.metacoding.restdoc.AbstractControllerTest;
 import site.metacoding.restdoc.domain.User;
 
 @AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080)
-@AutoConfigureMockMvc
 @SpringBootTest
-public class UserApiControllerTest {
-
-        @Autowired
-        private MockMvc mockMvc;
+public class UserApiControllerTest extends AbstractControllerTest {
 
         @Test
-        public void save_test() throws Exception {
+        public void save_테스트() throws Exception {
                 // given
                 String content = new ObjectMapper().writeValueAsString(
                                 User.builder().username("ssar").password("1234").email("ssar@nate.com").build());
@@ -46,11 +47,11 @@ public class UserApiControllerTest {
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("1234"))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("ssar@nate.com"))
                                 .andDo(MockMvcResultHandlers.print())
-                                .andDo(MockMvcRestDocumentation.document("/post/api/user"));
+                                .andDo(document);
         }
 
         @Test
-        public void findById_test() throws Exception {
+        public void find_한건_테스트() throws Exception {
                 // given
                 Integer id = 1;
 
@@ -67,11 +68,11 @@ public class UserApiControllerTest {
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.password").value("1234"))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.email").value("ssar@nate.com"))
                                 .andDo(MockMvcResultHandlers.print())
-                                .andDo(MockMvcRestDocumentation.document("/get/api/user"));
+                                .andDo(document);
         }
 
         @Test
-        public void findAll_test() throws Exception {
+        public void find_전체_테스트() throws Exception {
                 // given
 
                 // when
@@ -90,6 +91,6 @@ public class UserApiControllerTest {
                                 .andExpect(MockMvcResultMatchers.jsonPath("[1].password").value("1234"))
                                 .andExpect(MockMvcResultMatchers.jsonPath("[1].email").value("cos@nate.com"))
                                 .andDo(MockMvcResultHandlers.print())
-                                .andDo(MockMvcRestDocumentation.document("/get/api/users"));
+                                .andDo(document);
         }
 }
