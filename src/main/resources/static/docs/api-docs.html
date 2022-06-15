@@ -525,8 +525,19 @@ Host: localhost:8080</code></pre>
 </div>
 <div class="sect4">
 <h5 id="_response_example_2">Response Example</h5>
-<div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::./build/generated-snippets/user-api-controller-test/find-find_한건_테스트-id_test/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 94
+
+{
+  "id" : 1,
+  "username" : "ssar",
+  "password" : "1234",
+  "email" : "ssar@nate.com"
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -570,7 +581,7 @@ Content-Length: 192
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-06-15 11:40:39 +0900
+Last updated 2022-06-15 11:42:35 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
